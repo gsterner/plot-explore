@@ -1,22 +1,41 @@
 var App = angular.module('App', []);
 
+function range(start, end, step)
+{
+    var returnArray = [];
+    var tempSum = start;
+    while(tempSum <= end) {
+        returnArray.push(tempSum);
+        tempSum += step;
+    }    
+    return returnArray;
+}
+
+
+function evaluateExpression(x) {
+    return x*x;
+}
+
+function getData(start, end, step){
+    var xdata = range(start, end, step);
+    var returnData = [];
+    for(i in xdata) {
+        yval = evaluateExpression(xdata[i]);
+        returnData.push([xdata[i], yval])
+    }
+    return [returnData];
+} 
+
 App.controller('Ctrl', function($scope){
     
-    var data1 = [ [[0, 1], [1, 5], [2, 2]] ],
-        data2 = [ [[0, 4], [1, 2], [2, 4]] ],
-        curr  = 1;
-    
-    $scope.data = data1;
-    
-    $scope.change = function(){ 
-        if(curr === 1){ 
-            $scope.data = data2;
-            curr = 2;
-        }else{
-            $scope.data = data1;
-            curr = 1;
-        }
+    $scope.data = getData(0,4,1);
+    $scope.minumumValue = function(minVal, maxVal){
+        var start = parseFloat(minVal);
+        var end = parseFloat(maxVal);
+        $scope.data = getData(start, end,1);
+        var myint = 1;
     };
+
 
 });
 
@@ -41,4 +60,6 @@ App.directive('chart', function(){
         }
     };
 });
+
+
 

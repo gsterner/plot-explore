@@ -8,7 +8,9 @@
  </head>
     <div ng-controller='Ctrl'>
         <p>
-            <button ng-click='change()'>Change Data</button>
+        <input ng-model="minVal" value="1.1">
+        <input ng-model="maxVal" value="1.2">
+        <button ng-click="minumumValue(minVal, maxVal)">Plot</button>
         </p>
         <chart ng-model='data'>
          
