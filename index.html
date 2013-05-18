@@ -4,14 +4,26 @@
  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
  <script src="https://raw.github.com/flot/flot/master/jquery.flot.js"></script>
  <script src="plottest.js"></script>
+ <script src="evaluator.js"></script>
  <link rel="stylesheet" href="plotstyle.css">
  </head>
-    <div ng-controller='Ctrl'>
+        <div ng-controller="FiddleController">
         <p>
-        <input ng-model="minVal" value="1.1">
-        <input ng-model="maxVal" value="1.2">
-        <button ng-click="minumumValue(minVal, maxVal)">Plot</button>
-        </p>
+            <label>Variable:</label>
+            <input type="text" ng-model="evaluatorInfo.variable"><br>
+            <label>Expression:</label>
+            <input type="text" ng-model="evaluatorInfo.expression"><br>
+            <label>Minval:</label>
+            <input type="number" ng-model="evaluatorInfo.minval" ><br>
+            <label>Maxval:</label>
+            <input type="number" ng-model="evaluatorInfo.maxval" ><br>
+            <label>Step:</label>
+            <input type="number" ng-model="evaluatorInfo.step" ><br>
+            <button ng-click="change()">Plot</button>
+            <hr>
+            {{data}}<br>
+            {{evaluatorInfo}}
+      </p>
         <chart ng-model='data'>
          
      </chart>

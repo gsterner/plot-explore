@@ -12,32 +12,25 @@ function range(start, end, step)
 }
 
 
-function evaluateExpression(x) {
-    return x*x;
-}
-
-function getData(start, end, step){
-    var xdata = range(start, end, step);
-    var returnData = [];
-    for(i in xdata) {
-        yval = evaluateExpression(xdata[i]);
-        returnData.push([xdata[i], yval])
-    }
-    return [returnData];
+function getPlotData(evaluatorInfo){
+    var fEvaluator = new Evaluator(evaluatorInfo.expression, evaluatorInfo.variable);
+    var xdata = range(evaluatorInfo.minval, evaluatorInfo.maxval, evaluatorInfo.step);
+    return fEvaluator.calculateDataArray(xdata);
 } 
 
-App.controller('Ctrl', function($scope){
-    
-    $scope.data = getData(0,4,1);
-    $scope.minumumValue = function(minVal, maxVal){
-        var start = parseFloat(minVal);
-        var end = parseFloat(maxVal);
-        $scope.data = getData(start, end,1);
-        var myint = 1;
+function FiddleController($scope) {
+    $scope.evaluatorInfo = {
+        variable   : "x",
+        expression : "x*x",
+        minval     : 0.0,
+        maxval     : 10,
+        step       : 1.0
     };
-
-
-});
+    $scope.data = getPlotData($scope.evaluatorInfo);
+    $scope.change = function() {
+        $scope.data = getPlotData($scope.evaluatorInfo);
+    };
+}
 
 App.directive('chart', function(){
     return{
